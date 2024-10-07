@@ -15,8 +15,8 @@ else
     SelectCHXtrig = 7;
 end
 
-T_end = height(BigData)%3500;                                               % Total duration of meas.
-BigData = BigData(1:Conf.Acquisition.F_sampling*T_end,:);    % Resizing to have same length for all
+% T_end = 3500;                                              % Total duration of measurement in s.
+% BigData = BigData(1:Conf.Acquisition.F_sampling*T_end,:);    % Resizing to have same length for all
 
 %% Configuration of measurement
 Conf.Parameters.WaterAHX_lperminute = 7;
