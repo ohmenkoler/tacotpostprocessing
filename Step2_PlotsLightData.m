@@ -90,7 +90,7 @@ Tlim_0beg = [Tmin_0beg Tmax_0beg];
 
 
 
-f1 = figure;set(gcf, 'Position', get(0, 'Screensize'));
+f1 = figure('units','normalized','outerposition',[0 0 1 1]);
 for nfile = 1:length(filename)
 toto = 1;
     f11 = subplot(231);hold on;
@@ -182,7 +182,7 @@ iRegAHX = 0;
 iAHX = 0;
 iAxis = 0;
 
-f2 = figure;set(gcf, 'Position', get(0, 'Screensize'));
+f2 = figure('units','normalized','outerposition',[0 0 1 1]);
 for nfile = 1:length(filename)
 toto = 1;
     f21 = subplot(231);hold on;
@@ -301,8 +301,16 @@ end
 %% Plot gradients
 AxisLabel = ["4, 7, 10" "5, 8, 11" "6, 9, 12"];
 
-figure;set(gcf, 'Position', get(0, 'Screensize'));
+figure('units','normalized','outerposition',[0 0 1 1]);
 for nfile = 1:length(filename)
+    avg5lastmin = 5 * 60 * BigData(nfile).Conf.Acquisition.F_resampling;    % nb of points for averaging
+    
+    TC_avg = mean(BigData(nfile).TC{end-avg5lastmin:end,2:end},1);
+    TC_0beg_avg = mean(BigData(nfile).TC_0beg{end-avg5lastmin:end,2:end},1);
+
+    TC_avg_mat = reshape(TC_avg(:,4:12),3,3);
+    TC_0beg_avg_mat = reshape(TC_0beg_avg(:,4:12),3,3);
+
     subplot(211);hold on;
     for nplot = 1:3
         ntmp = nplot+(nfile-1)*3;
@@ -317,13 +325,7 @@ for nfile = 1:length(filename)
     xlabel("x [m]");ylabel("T [^oC]")
 
     subplot(212);hold on;
-    avg5lastmin = 5 * 60 * BigData(nfile).Conf.Acquisition.F_resampling;    % nb of points for averaging
     
-    TC_avg = mean(BigData(nfile).TC{end-avg5lastmin:end,2:end},1);
-    TC_0beg_avg = mean(BigData(nfile).TC_0beg{end-avg5lastmin:end,2:end},1);
-
-    TC_avg_mat = reshape(TC_avg(:,4:12),3,3);
-    TC_0beg_avg_mat = reshape(TC_0beg_avg(:,4:12),3,3);
     
     for nplot = 1:3
         ntmp = nplot+(nfile-1)*3;
