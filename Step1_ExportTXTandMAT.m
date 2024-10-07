@@ -1,6 +1,5 @@
 clear
 
-addpath("../../")
 [BigData,Conf.Acquisition.F_sampling] = importFILES;
 
 if width(BigData) == 18
