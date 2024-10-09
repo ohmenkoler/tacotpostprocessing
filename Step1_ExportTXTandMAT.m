@@ -14,9 +14,9 @@ else
     SelectUIRix = [28 27];
     SelectCHXtrig = 7;
 end
-
-T_end = 540;%3500;                                              % Total duration of measurement in s.
-BigData = BigData(1:Conf.Acquisition.F_sampling*T_end,:);    % Resizing to have same length for all
+% 
+% T_end = 540;%3500;                                              % Total duration of measurement in s.
+% BigData = BigData(1:Conf.Acquisition.F_sampling*T_end,:);    % Resizing to have same length for all
 
 %% Configuration of measurement
 Conf.Parameters.WaterAHX_lperminute = 7;
@@ -32,8 +32,8 @@ Conf.Parameters.Cpwater = 4185;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Conf.Acquisition.Iteration = 1;
-Conf.Parameters.Orientation = 'V2';
-CompLabels = 'V1V2';    %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Conf.Parameters.Orientation = 'H1';
+CompLabels = 'H1H2';    %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Conf.Acquisition.ManipType = 'HeatOnly';
 Conf.Acquisition.Acq = 'Transient';
 Conf.Acquisition.Amplitude = 'Off';
