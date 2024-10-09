@@ -67,10 +67,10 @@ Tmax = -300;
 Tmax_0beg = -300;
 for nfile = 1:length(filename)
     avg5lastmin = 5 * 60 * BigData(nfile).Conf.Acquisition.F_resampling;    % nb of points for averaging
-    Tmin_tmp = min(min(BigData(nfile).TC{:,:}));
-    Tmin_0beg_tmp = min(min(BigData(nfile).TC_0beg{:,:}));
-    Tmax_tmp = max(max(BigData(nfile).TC{:,:}));
-    Tmax_0beg_tmp = max(max(BigData(nfile).TC_0beg{:,:}));
+    Tmin_tmp = min(min(BigData(nfile).TC{:,5:13}));
+    Tmin_0beg_tmp = min(min(BigData(nfile).TC_0beg{:,5:13}));
+    Tmax_tmp = max(max(BigData(nfile).TC{:,5:13}));
+    Tmax_0beg_tmp = max(max(BigData(nfile).TC_0beg{:,5:13}));
     if Tmin_tmp < Tmin
         Tmin = Tmin_tmp;
     end
@@ -323,10 +323,12 @@ for nfile = 1:length(filename)
     legend(NumColumns=2)
     set(gca,'XMinorGrid','on');set(gca,'YMinorGrid','on');set(gca,'ZMinorGrid','on');
     xlabel("x [m]");ylabel("T [^oC]")
+    title({[BigData(nfile).Conf.Parameters.Orientation ...
+        ', with initial temperature'],...
+        ['Qa = ' num2str(BigData(nfile).Q_a) ' W, DR: ' ...
+        num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
 
     subplot(212);hold on;
-    
-    
     for nplot = 1:3
         ntmp = nplot+(nfile-1)*3;
         p = plot(x,TC_0beg_avg_mat(nplot,:)',color=RegCHXcolor(ntmp,:),...
@@ -338,6 +340,10 @@ for nfile = 1:length(filename)
     legend(NumColumns=2)
     set(gca,'XMinorGrid','on');set(gca,'YMinorGrid','on');set(gca,'ZMinorGrid','on');
     xlabel("x [m]");ylabel("T-T|_{t=0} [^oC]")
+    title({[BigData(nfile).Conf.Parameters.Orientation ...
+        ', without initial temperature'],...
+        ['Qa = ' num2str(BigData(nfile).Q_a) ' W, DR: ' ...
+        num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
 
 end
 
