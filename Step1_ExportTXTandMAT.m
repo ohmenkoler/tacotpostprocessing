@@ -15,7 +15,7 @@ else
     SelectCHXtrig = 7;
 end
 
-T_end = 3500;                                              % Total duration of measurement in s.
+T_end = 2700;                                              % Total duration of measurement in s.
 BigData = BigData(1:Conf.Acquisition.F_sampling*T_end,:);    % Resizing to have same length for all
 
 %% Configuration of measurement
@@ -31,8 +31,8 @@ Conf.Parameters.CanisterType = 'Inox';
 Conf.Parameters.Cpwater = 4185;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Conf.Acquisition.Iteration = 3;
-Conf.Parameters.Orientation = 'V1';
+Conf.Acquisition.Iteration = 1;
+Conf.Parameters.Orientation = 'H2';
 Conf.Acquisition.ManipType = 'Acou';
 Conf.Acquisition.Acq = 'Transient';
 Conf.Acquisition.Amplitude = 'Mid';
