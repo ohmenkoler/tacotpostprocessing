@@ -300,9 +300,12 @@ end
 
 %% Plot gradients
 AxisLabel = ["4, 7, 10" "5, 8, 11" "6, 9, 12"];
+toutes_orientations=[];
 
 figure('units','normalized','outerposition',[0 0 1 1]);
 for nfile = 1:length(filename)
+    toutes_orientations=[toutes_orientations BigData(nfile).Conf.Parameters.Orientation];
+
     avg5lastmin = 5 * 60 * BigData(nfile).Conf.Acquisition.F_resampling;    % nb of points for averaging
     
     TC_avg = mean(BigData(nfile).TC{end-avg5lastmin:end,2:end},1);
@@ -323,10 +326,8 @@ for nfile = 1:length(filename)
     legend(NumColumns=2)
     set(gca,'XMinorGrid','on');set(gca,'YMinorGrid','on');set(gca,'ZMinorGrid','on');
     xlabel("x [m]");ylabel("T [^oC]")
-    title({[BigData(nfile).Conf.Parameters.Orientation ...
-        ', with initial temperature'],...
-        ['Qa = ' num2str(BigData(nfile).Q_a) ' W, DR: ' ...
-        num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
+    title({[toutes_orientations ', with initial temperature'],...
+        ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
 
     subplot(212);hold on;
     for nplot = 1:3
@@ -340,11 +341,8 @@ for nfile = 1:length(filename)
     legend(NumColumns=2)
     set(gca,'XMinorGrid','on');set(gca,'YMinorGrid','on');set(gca,'ZMinorGrid','on');
     xlabel("x [m]");ylabel("T-T|_{t=0} [^oC]")
-    title({[BigData(nfile).Conf.Parameters.Orientation ...
-        ', without initial temperature'],...
-        ['Qa = ' num2str(BigData(nfile).Q_a) ' W, DR: ' ...
-        num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
-
+    title({[toutes_orientations ', with initial temperature'],...
+        ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
 end
 
 

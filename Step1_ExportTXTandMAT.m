@@ -33,7 +33,6 @@ Conf.Parameters.Cpwater = 4185;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Conf.Acquisition.Iteration = 3;
 Conf.Parameters.Orientation = 'V1';
-CompLabels = 'V1V2';    %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Conf.Acquisition.ManipType = 'Acou';
 Conf.Acquisition.Acq = 'Transient';
 Conf.Acquisition.Amplitude = 'Mid';
