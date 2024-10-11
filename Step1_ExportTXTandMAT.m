@@ -31,7 +31,7 @@ Conf.Parameters.CanisterType = 'Inox';
 Conf.Parameters.Cpwater = 4185;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Conf.Acquisition.Iteration = 2;
+Conf.Acquisition.Iteration = 3;
 Conf.Parameters.Orientation = 'V1';
 CompLabels = 'V1V2';    %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Conf.Acquisition.ManipType = 'Acou';
