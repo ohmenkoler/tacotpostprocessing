@@ -67,10 +67,10 @@ Tmax = -300;
 Tmax_0beg = -300;
 for nfile = 1:length(filename)
     avg5lastmin = 5 * 60 * BigData(nfile).Conf.Acquisition.F_resampling;    % nb of points for averaging
-    Tmin_tmp = min(min(BigData(nfile).TC{:,5:13}));
-    Tmin_0beg_tmp = min(min(BigData(nfile).TC_0beg{:,5:13}));
-    Tmax_tmp = max(max(BigData(nfile).TC{:,5:13}));
-    Tmax_0beg_tmp = max(max(BigData(nfile).TC_0beg{:,5:13}));
+    Tmin_tmp = min(min(BigData(nfile).TC{:,1:13}));
+    Tmin_0beg_tmp = min(min(BigData(nfile).TC_0beg{:,1:13}));
+    Tmax_tmp = max(max(BigData(nfile).TC{:,1:13}));
+    Tmax_0beg_tmp = max(max(BigData(nfile).TC_0beg{:,1:13}));
     if Tmin_tmp < Tmin
         Tmin = Tmin_tmp;
     end
@@ -323,7 +323,7 @@ for nfile = 1:length(filename)
         p.LineStyle = LineStyle(nfile);
         p.LineWidth = 2;
     end
-    legend(NumColumns=2)
+    legend(NumColumns=2,Location="southeast")
     set(gca,'XMinorGrid','on');set(gca,'YMinorGrid','on');set(gca,'ZMinorGrid','on');
     xlabel("x [m]");ylabel("T [^oC]")
     title({[toutes_orientations ', with initial temperature'],...
@@ -338,7 +338,7 @@ for nfile = 1:length(filename)
         p.LineStyle = LineStyle(nfile);
         p.LineWidth = 2;
     end
-    legend(NumColumns=2)
+    legend(NumColumns=2,Location="southeast")
     set(gca,'XMinorGrid','on');set(gca,'YMinorGrid','on');set(gca,'ZMinorGrid','on');
     xlabel("x [m]");ylabel("T-T|_{t=0} [^oC]")
     title({[toutes_orientations ', with initial temperature'],...
