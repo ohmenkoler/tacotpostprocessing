@@ -269,6 +269,7 @@ end
 
 %% Plot thermal maps
 x = [0 39/2 39];                % Regen axial dimension
+x_core = [x(1)-10 x x(end)+5];  % Core axial dimension
 r = [-148/2 0 148/2];           % Regen transverse dimension
 
 [X,R] = meshgrid(x,r);
@@ -300,7 +301,8 @@ end
 
 
 %% Plot gradients
-AxisLabel = ["4, 7, 10" "5, 8, 11" "6, 9, 12"];
+AxisLabel3 = ["4, 7, 10" "5, 8, 11" "6, 9, 12"];
+AxisLabel5 = ["1, 4, 7, 10, 13" "2, 5, 8, 11, 13" "3, 6, 9, 12, 15"];
 toutes_orientations=[];
 
 figure('units','normalized','outerposition',[0 0 1 1]);
@@ -319,7 +321,7 @@ for nfile = 1:length(filename)
     for nplot = 1:3
         ntmp = nplot+(nfile-1)*3;
         p = plot(x,TC_avg_mat(nplot,:)',color=RegCHXcolor(ntmp,:),...
-            DisplayName=['TC ' convertStringsToChars(AxisLabel(nplot)) ...
+            DisplayName=['TC ' convertStringsToChars(AxisLabel3(nplot)) ...
             ' (' BigData(nfile).Conf.Parameters.Orientation ')']);
         p.LineStyle = LineStyle(nfile);
         p.LineWidth = 2;
@@ -329,12 +331,13 @@ for nfile = 1:length(filename)
     xlabel("x [m]");ylabel("T [^oC]")
     title({[toutes_orientations ', with initial temperature'],...
         ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
+    ylim(Tlim)
 
     subplot(212);hold on;
     for nplot = 1:3
         ntmp = nplot+(nfile-1)*3;
         p = plot(x,TC_0beg_avg_mat(nplot,:)',color=RegCHXcolor(ntmp,:),...
-            DisplayName=['TC ' convertStringsToChars(AxisLabel(nplot)) ...
+            DisplayName=['TC ' convertStringsToChars(AxisLabel3(nplot)) ...
             ' (' BigData(nfile).Conf.Parameters.Orientation ')']);
         p.LineStyle = LineStyle(nfile);
         p.LineWidth = 2;
@@ -344,9 +347,57 @@ for nfile = 1:length(filename)
     xlabel("x [m]");ylabel("T-T|_{t=0} [^oC]")
     title({[toutes_orientations ', without initial temperature'],...
         ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
+    ylim(Tlim_0beg)
+end
+
+
+
+
+figure('units','normalized','outerposition',[0 0 1 1]);
+for nfile = 1:length(filename)
+
+    avg5lastmin = 5 * 60 * BigData(nfile).Conf.Acquisition.F_resampling;    % nb of points for averaging
+    
+    TC_avg = mean(BigData(nfile).TC{end-avg5lastmin:end,2:end},1);
+    TC_0beg_avg = mean(BigData(nfile).TC_0beg{end-avg5lastmin:end,2:end},1);
+
+    TC_avg_mat = reshape(TC_avg,3,5);
+    TC_0beg_avg_mat = reshape(TC_0beg_avg,3,5);
+
+    subplot(211);hold on;
+    for nplot = 1:3
+        ntmp = nplot+(nfile-1)*3;
+        p = plot(x_core,TC_avg_mat(nplot,:)',color=RegCHXcolor(ntmp,:),...
+            DisplayName=['TC ' convertStringsToChars(AxisLabel5(nplot)) ...
+            ' (' BigData(nfile).Conf.Parameters.Orientation ')']);
+        p.LineStyle = LineStyle(nfile);
+        p.LineWidth = 2;
+    end
+    legend(NumColumns=2,Location="southeast")
+    set(gca,'XMinorGrid','on');set(gca,'YMinorGrid','on');set(gca,'ZMinorGrid','on');
+    xlabel("x [m]");ylabel("T [^oC]")
+    title({[toutes_orientations ', with initial temperature'],...
+        ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
+    ylim(Tlim)
+
+    subplot(212);hold on;
+    for nplot = 1:3
+        ntmp = nplot+(nfile-1)*3;
+        p = plot(x_core,TC_0beg_avg_mat(nplot,:)',color=RegCHXcolor(ntmp,:),...
+            DisplayName=['TC ' convertStringsToChars(AxisLabel5(nplot)) ...
+            ' (' BigData(nfile).Conf.Parameters.Orientation ')']);
+        p.LineStyle = LineStyle(nfile);
+        p.LineWidth = 2;
+    end
+    legend(NumColumns=2,Location="southeast")
+    set(gca,'XMinorGrid','on');set(gca,'YMinorGrid','on');set(gca,'ZMinorGrid','on');
+    xlabel("x [m]");ylabel("T-T|_{t=0} [^oC]")
+    title({[toutes_orientations ', without initial temperature'],...
+        ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
+    ylim(Tlim_0beg)
 end
 
 %% Save figures
-Figs = findobj('Type','Figure');
-FigsNames = ["Transient","Transient_0","AxProfile_3","AxProfile_5","TMaps"];
+Figs = findobj('Type','Figure')
+FigsNames = ["Transient","Transient_0","TMaps","AxProfile_3","AxProfile_5"];
 
