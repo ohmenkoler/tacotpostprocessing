@@ -341,7 +341,7 @@ for nfile = 1:length(filename)
     legend(NumColumns=2,Location="southeast")
     set(gca,'XMinorGrid','on');set(gca,'YMinorGrid','on');set(gca,'ZMinorGrid','on');
     xlabel("x [m]");ylabel("T-T|_{t=0} [^oC]")
-    title({[toutes_orientations ', with initial temperature'],...
+    title({[toutes_orientations ', without initial temperature'],...
         ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
 end
 
