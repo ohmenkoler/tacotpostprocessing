@@ -402,6 +402,44 @@ for nfile = 1:length(filename)
 end
 
 %% Save figures
-Figs = findobj('Type','Figure')
+Figs = findobj('Type','Figure');
+Figs = Figs(end:-1:1);
 FigsNames = ["Transient","Transient_0","TMaps","AxProfile_3","AxProfile_5"];
+
+fig = uifigure('HandleVisibility','on');
+selection = uiconfirm(fig,'Store the figures?',...
+    'Figure storage',"Options",...
+    ["Yes","No"], ...
+    "DefaultOption",1,"CancelOption",2);
+switch selection
+    case 'Yes'
+        SAVE_PATH = uigetdir('Z:\Martin\Measurements\TACOT\V2_AddedSensors',"Where?");
+        mkdir(SAVE_PATH,'Figures\')
+        savepathfig = [SAVE_PATH '\Figures\'];
+
+        for ifig = 1:length(Figs)
+            savefig(Figs(ifig),[savepathfig convertStringsToChars(FigsNames(ifig)) ...
+                '_' toutes_orientations '_' BigData(1).Conf.Acquisition.Amplitude])
+        end
+    case 'No'
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
