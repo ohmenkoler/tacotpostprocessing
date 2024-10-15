@@ -332,6 +332,7 @@ for nfile = 1:length(filename)
     title({[toutes_orientations ', with initial temperature'],...
         ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
     ylim(Tlim)
+    xlim([x(1) x(end)])
 
     subplot(212);hold on;
     for nplot = 1:3
@@ -348,6 +349,7 @@ for nfile = 1:length(filename)
     title({[toutes_orientations ', without initial temperature'],...
         ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
     ylim(Tlim_0beg)
+    xlim([x(1) x(end)])
 end
 
 
@@ -379,6 +381,7 @@ for nfile = 1:length(filename)
     title({[toutes_orientations ', with initial temperature'],...
         ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
     ylim(Tlim)
+    xlim([x_core(1) x_core(end)])
 
     subplot(212);hold on;
     for nplot = 1:3
@@ -395,6 +398,7 @@ for nfile = 1:length(filename)
     title({[toutes_orientations ', without initial temperature'],...
         ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
     ylim(Tlim_0beg)
+    xlim([x_core(1) x_core(end)])
 end
 
 %% Save figures
