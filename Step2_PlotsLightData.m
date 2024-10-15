@@ -273,6 +273,8 @@ r = [-148/2 0 148/2];           % Regen transverse dimension
 
 [X,R] = meshgrid(x,r);
 
+i_tmp=0;
+figure('units','normalized','outerposition',[0 0 1 1]);
 for nfile = 1:length(filename)
     avg5lastmin = 5 * 60 * BigData(nfile).Conf.Acquisition.F_resampling;    % nb of points for averaging
 
@@ -282,20 +284,19 @@ for nfile = 1:length(filename)
     TC_avg_mat = reshape(TC_avg(:,4:12),3,3);
     TC_0beg_avg_mat = reshape(TC_0beg_avg(:,4:12),3,3);
 
-    figure('units','normalized','outerposition',[.5*(nfile-1) .5 .5 .5]);
+    subplot(2,2,i_tmp+nfile)
     contour(X,R,TC_avg_mat)
     colorbar()
     title({[BigData(nfile).Conf.Parameters.Orientation ', with initial temperature'],['Qa = ' num2str(BigData(nfile).Q_a) ' W, DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
     xlabel("x [m]");ylabel("r [m]")
 
-    figure('units','normalized','outerposition',[.5*(nfile-1) 0 .5 .5]);
+    subplot(2,2,i_tmp+nfile+1)
     contour(X,R,TC_0beg_avg_mat)
     title({[BigData(nfile).Conf.Parameters.Orientation ', without initial temperature'],['Qa = ' num2str(BigData(nfile).Q_a) ' W, DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
     colorbar()
     xlabel("x [m]");ylabel("r [m]")
+    i_tmp=nfile;
 end
-
-
 
 
 %% Plot gradients
@@ -345,5 +346,7 @@ for nfile = 1:length(filename)
         ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
 end
 
-
+%% Save figures
+Figs = findobj('Type','Figure');
+FigsNames = ["Transient","Transient_0","AxProfile_3","AxProfile_5","TMaps"];
 
