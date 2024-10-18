@@ -312,10 +312,14 @@ for nfile = 1:length(filename)
     avg5lastmin = 5 * 60 * BigData(nfile).Conf.Acquisition.F_resampling;    % nb of points for averaging
     
     TC_avg = mean(BigData(nfile).TC{end-avg5lastmin:end,2:end},1);
+    TC_std = std(BigData(nfile).TC{end-avg5lastmin:end,2:end},0,1);
     TC_0beg_avg = mean(BigData(nfile).TC_0beg{end-avg5lastmin:end,2:end},1);
+    TC_0beg_std = std(BigData(nfile).TC_0beg{end-avg5lastmin:end,2:end},0,1);
 
     TC_avg_mat = reshape(TC_avg(:,4:12),3,3);
+    TC_std_mat = reshape(TC_std(:,4:12),3,3);
     TC_0beg_avg_mat = reshape(TC_0beg_avg(:,4:12),3,3);
+    TC_0beg_std_mat = reshape(TC_0beg_std(:,4:12),3,3);
 
     subplot(211);hold on;
     for nplot = 1:3
@@ -323,6 +327,8 @@ for nfile = 1:length(filename)
         p = plot(x,TC_avg_mat(nplot,:)',color=RegCHXcolor(ntmp,:),...
             DisplayName=['TC ' convertStringsToChars(AxisLabel3(nplot)) ...
             ' (' BigData(nfile).Conf.Parameters.Orientation ')']);
+        e = errorbar(x,TC_avg_mat(nplot,:)',TC_std_mat(nplot,:)',...
+            color=RegCHXcolor(ntmp,:));
         p.LineStyle = LineStyle(nfile);
         p.LineWidth = 2;
     end
@@ -340,6 +346,8 @@ for nfile = 1:length(filename)
         p = plot(x,TC_0beg_avg_mat(nplot,:)',color=RegCHXcolor(ntmp,:),...
             DisplayName=['TC ' convertStringsToChars(AxisLabel3(nplot)) ...
             ' (' BigData(nfile).Conf.Parameters.Orientation ')']);
+        e = errorbar(x,TC_0beg_avg_mat(nplot,:)',TC_0beg_std_mat(nplot,:)',...
+            color=RegCHXcolor(ntmp,:));
         p.LineStyle = LineStyle(nfile);
         p.LineWidth = 2;
     end
