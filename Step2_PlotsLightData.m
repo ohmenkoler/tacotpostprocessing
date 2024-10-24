@@ -273,6 +273,8 @@ x_core = [x(1)-10 x x(end)+5];  % Core axial dimension
 r = [-148/2 0 148/2];           % Regen transverse dimension
 
 [X,R] = meshgrid(x,r);
+X = X(:,end:-1:1);
+R = R(end:-1:1,:);
 
 i_tmp=0;
 figure('units','normalized','outerposition',[0 0 1 1]);
