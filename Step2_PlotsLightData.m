@@ -287,15 +287,17 @@ for nfile = 1:length(filename)
     TC_0beg_avg_mat = reshape(TC_0beg_avg(:,4:12),3,3);
 
     subplot(2,2,i_tmp+nfile)
-    contour(X,R,TC_avg_mat)
+    pcolor(X,R,TC_avg_mat)
     colorbar()
+    shading('interp')
     title({[BigData(nfile).Conf.Parameters.Orientation ', with initial temperature'],['Qa = ' num2str(BigData(nfile).Q_a) ' W, DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
     xlabel("x [m]");ylabel("r [m]")
 
     subplot(2,2,i_tmp+nfile+1)
-    contour(X,R,TC_0beg_avg_mat)
+    pcolor(X,R,TC_0beg_avg_mat)
     title({[BigData(nfile).Conf.Parameters.Orientation ', without initial temperature'],['Qa = ' num2str(BigData(nfile).Q_a) ' W, DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
     colorbar()
+    shading('interp')
     xlabel("x [m]");ylabel("r [m]")
     i_tmp=nfile;
 end
