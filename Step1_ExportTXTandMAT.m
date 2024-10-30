@@ -32,10 +32,10 @@ Conf.Parameters.Cpwater = 4185;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Conf.Acquisition.Iteration = 2;
-Conf.Parameters.Orientation = 'V1';
+Conf.Parameters.Orientation = 'V2';
 Conf.Acquisition.ManipType = 'Acou';
 Conf.Acquisition.Acq = 'Transient';
-Conf.Acquisition.Amplitude = 'High';
+Conf.Acquisition.Amplitude = 'Off';
 Conf.Parameters.UCHX_Vrms = 0;
 switch Conf.Acquisition.Amplitude
     case {'Low','Lo','low','lo'}
