@@ -24,7 +24,7 @@ tmp_channelGroup = tmp_info.ChannelList{1,2};
 tmp_channelName = tmp_info.ChannelList{1,4};
 
 tmp_fs = tdmsreadprop(pathname(1),ChannelGroupName=tmp_channelGroup,ChannelName=tmp_channelName);
-f_sampling = fix(1./tmp_fs{1,13}); %1651
+f_sampling = 1651;%fix(1./tmp_fs{1,13}); %1651
 
 BigChannels = tdmsread(pathname(1),SampleRate=f_sampling);
 BigChannels = BigChannels{1,1};
