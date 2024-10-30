@@ -32,8 +32,8 @@ Conf.Parameters.Cpwater = 4185;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Conf.Acquisition.Iteration = 2;
-Conf.Parameters.Orientation = 'V2';
-Conf.Acquisition.ManipType = 'Acou';
+Conf.Parameters.Orientation = 'H2';
+Conf.Acquisition.ManipType = 'HeatOnly';
 Conf.Acquisition.Acq = 'Transient';
 Conf.Acquisition.Amplitude = 'Off';
 Conf.Parameters.UCHX_Vrms = 0;
@@ -67,6 +67,7 @@ DPS = BigData(end-N_end:end,SelectDPS);
 UIRix = BigData(end-N_end:end,SelectUIRix);
 
 CHXTrig = BigData(:,SelectCHXtrig);
+CHXDutyCycle = mean(CHXTrig);
 
 TC = BigData(:,SelectTC);
 TA_core = TC(:,2:end);
