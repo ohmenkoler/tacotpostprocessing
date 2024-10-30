@@ -15,13 +15,13 @@ else
     SelectCHXtrig = 7;
 end
 
-% T_end = 3500;                                              % Total duration of measurement in s.
-% BigData = BigData(1:Conf.Acquisition.F_sampling*T_end,:);    % Resizing to have same length for all
+T_end = 3500;                                              % Total duration of measurement in s.
+BigData = BigData(1:Conf.Acquisition.F_sampling*T_end,:);    % Resizing to have same length for all
 
 %% Configuration of measurement
 Conf.Parameters.WaterAHX_lperminute = 7;
 Conf.Parameters.GasMix = '65%He-35%Ar';
-Conf.Parameters.GasStaticPressure = 40;
+Conf.Parameters.GasStaticPressure = 38;
 Conf.Parameters.F_operation = 47;
 Conf.Parameters.RegPoros = 68;
 Conf.Parameters.rh = 2.81e-5;
@@ -31,12 +31,12 @@ Conf.Parameters.CanisterType = 'Inox';
 Conf.Parameters.Cpwater = 4185;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Conf.Acquisition.Iteration = 2;
-Conf.Parameters.Orientation = 'H2';
+Conf.Acquisition.Iteration = 1;
+Conf.Parameters.Orientation = 'V1';
 Conf.Acquisition.ManipType = 'HeatOnly';
 Conf.Acquisition.Acq = 'Transient';
 Conf.Acquisition.Amplitude = 'Off';
-Conf.Parameters.UCHX_Vrms = 0;
+Conf.Parameters.UCHX_Vrms = 30;
 switch Conf.Acquisition.Amplitude
     case {'Low','Lo','low','lo'}
         Conf.Parameters.URIX_Vrms = 13;
