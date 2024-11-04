@@ -291,14 +291,14 @@ for nfile = 1:length(filename)
     colorbar()
     shading('interp')
     title({[BigData(nfile).Conf.Parameters.Orientation ', with initial temperature'],['Qa = ' num2str(BigData(nfile).Q_a) ' W, DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
-    xlabel("x [m]");ylabel("r [m]")
+    xlabel("x [mm]");ylabel("r [mm]")
 
     subplot(2,2,i_tmp+nfile+1)
     pcolor(X,R,TC_0beg_avg_mat)
     title({[BigData(nfile).Conf.Parameters.Orientation ', without initial temperature'],['Qa = ' num2str(BigData(nfile).Q_a) ' W, DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
     colorbar()
     shading('interp')
-    xlabel("x [m]");ylabel("r [m]")
+    xlabel("x [mm]");ylabel("r [mm]")
     i_tmp=nfile;
 end
 
@@ -337,7 +337,7 @@ for nfile = 1:length(filename)
     end
     legend(NumColumns=2,Location="southeast")
     set(gca,'XMinorGrid','on');set(gca,'YMinorGrid','on');set(gca,'ZMinorGrid','on');
-    xlabel("x [m]");ylabel("T [^oC]")
+    xlabel("x [mm]");ylabel("T [^oC]")
     title({[toutes_orientations ', with initial temperature'],...
         ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
     ylim(Tlim)
@@ -356,7 +356,7 @@ for nfile = 1:length(filename)
     end
     legend(NumColumns=2,Location="southeast")
     set(gca,'XMinorGrid','on');set(gca,'YMinorGrid','on');set(gca,'ZMinorGrid','on');
-    xlabel("x [m]");ylabel("T-T|_{t=0} [^oC]")
+    xlabel("x [mm]");ylabel("T-T|_{t=0} [^oC]")
     title({[toutes_orientations ', without initial temperature'],...
         ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
     ylim(Tlim_0beg)
@@ -388,7 +388,7 @@ for nfile = 1:length(filename)
     end
     legend(NumColumns=2,Location="southeast")
     set(gca,'XMinorGrid','on');set(gca,'YMinorGrid','on');set(gca,'ZMinorGrid','on');
-    xlabel("x [m]");ylabel("T [^oC]")
+    xlabel("x [mm]");ylabel("T [^oC]")
     title({[toutes_orientations ', with initial temperature'],...
         ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
     ylim(Tlim)
@@ -405,7 +405,7 @@ for nfile = 1:length(filename)
     end
     legend(NumColumns=2,Location="southeast")
     set(gca,'XMinorGrid','on');set(gca,'YMinorGrid','on');set(gca,'ZMinorGrid','on');
-    xlabel("x [m]");ylabel("T-T|_{t=0} [^oC]")
+    xlabel("x [mm]");ylabel("T-T|_{t=0} [^oC]")
     title({[toutes_orientations ', without initial temperature'],...
         ['DR: ' num2str(BigData(nfile).H_DPS(2,2)/(40e3)) ' %']})
     ylim(Tlim_0beg)
