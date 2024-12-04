@@ -7,7 +7,7 @@ function [BigChannels,f_sampling] = importFILES
 
 %% Path and name
 [filename,filepath] = uigetfile({'*.tdms';'*.xls*'},'Select a .tdms file to process',...
-    'Z:\Martin\Measurements\TACOT\V2_AddedSensors',...
+    'Z:\Martin\Measurements\TACOT\Version2_AddedSensors',...
     'MultiSelect','on');
 if iscell(filename) == true                 % When N file are imported
     pathname = strcat(filepath,filename);   % they are already in a cell
@@ -24,7 +24,8 @@ tmp_channelGroup = tmp_info.ChannelList{1,2};
 tmp_channelName = tmp_info.ChannelList{1,4};
 
 tmp_fs = tdmsreadprop(pathname(1),ChannelGroupName=tmp_channelGroup,ChannelName=tmp_channelName);
-f_sampling = fix(1./tmp_fs{1,13}); %1651
+f_sampling = fix(1./tmp_fs{1,13}); 
+% f_sampling = 1651;
 
 BigChannels = tdmsread(pathname(1),SampleRate=f_sampling);
 BigChannels = BigChannels{1,1};
