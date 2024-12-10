@@ -15,13 +15,13 @@ else
     SelectCHXtrig = 7;
 end
 
-T_end = 3500;                                              % Total duration of measurement in s.
-BigData = BigData(1:Conf.Acquisition.F_sampling*T_end,:);    % Resizing to have same length for all
+% T_end = 3500;                                              % Total duration of measurement in s.
+% BigData = BigData(1:Conf.Acquisition.F_sampling*T_end,:);    % Resizing to have same length for all
 
 %% Configuration of measurement
 Conf.Parameters.WaterAHX_lperminute = 7;
 Conf.Parameters.GasMix = '65%He-35%Ar';
-Conf.Parameters.GasStaticPressure = 38;
+Conf.Parameters.GasStaticPressure = 40;
 Conf.Parameters.F_operation = 47;
 Conf.Parameters.RegPoros = 68;
 Conf.Parameters.rh = 2.81e-5;
@@ -31,11 +31,11 @@ Conf.Parameters.CanisterType = 'Inox';
 Conf.Parameters.Cpwater = 4185;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Conf.Acquisition.Iteration = 2;
+Conf.Acquisition.Iteration = 1;
 Conf.Parameters.Orientation = 'V1';
-Conf.Acquisition.ManipType = 'HeatOnly';
+Conf.Acquisition.ManipType = 'AcouQc50W';
 Conf.Acquisition.Acq = 'Transient';
-Conf.Acquisition.Amplitude = 'Off';
+Conf.Acquisition.Amplitude = 'Mid';
 Conf.Parameters.UCHX_Vrms = 30;
 switch Conf.Acquisition.Amplitude
     case {'Low','Lo','low','lo'}
@@ -84,7 +84,7 @@ PT = PT(1:N_resample:end,:);
 SPS = SPS(1:N_resample:end,:);
 
 %% Calculations of heat flows
-mdot = Conf.Parameters.WaterAHX_lperminute / 60 / 1000 * 1000;   % kg/s
+mdot = Conf.Parameters.WaterAHX_lperminute / 60;   % l/min -> kg/s
 Q_a_t = Conf.Parameters.Cpwater * mdot * (PT{:,2} - PT{:,1});
 Q_a = mean(Q_a_t(end-50:end));
 Q_c = Conf.Parameters.UCHX_Vrms^2/Conf.Parameters.RCHX_ohm;
@@ -148,29 +148,66 @@ save_txt = uifigure();
 selection3 = uiconfirm(save_txt,'Save .txt data ?', 'Save ?',"Options",["Yes","No"]);
 switch selection3
     case 'Yes'
-        mkdir(SAVE_PATH,'TextData\')
-        savepathtxt = [SAVE_PATH '\TextData\'];
-        % addpath(savepathtxt)
-
+        mkdir(SAVE_PATH,'TextData\TemporalData\')
+        savepathtxt_temporal = [SAVE_PATH '\TextData\TemporalData\'];
         for n = 1:16
-            filenameTCtxt = [savepathtxt 'data_TC' num2str(n-1) '_Rix' Conf.Acquisition.Amplitude '_PhaseRIXHP' ...
+            filenameTCtxt_temporal = [savepathtxt_temporal 'data_TC' num2str(n-1) '_Rix' Conf.Acquisition.Amplitude '_PhaseRIXHP' ...
                 num2str(Conf.Parameters.PhiHP-Conf.Parameters.PhiRix)...
                     '°_Orientation' Conf.Parameters.Orientation '_Qc' num2str(Q_c,'%.0f') 'W_Serie' num2str(Conf.Acquisition.Iteration) '.txt'];
             % writetimetable(TC(:,n),filenametxt,'WriteVariableNames',false,'Delimiter','tab');
             tmp = [seconds(TC.Time) table2array(TC(:,n))];
-            save(filenameTCtxt,"tmp",'-ascii')
+            save(filenameTCtxt_temporal,"tmp",'-ascii')
 
-            filenameTC0begtxt = [savepathtxt 'data_TC' num2str(n-1) '_0beg_Rix' Conf.Acquisition.Amplitude '_PhaseRIXHP' ...
+            filenameTC0begtxt_temporal = [savepathtxt_temporal 'data_TC' num2str(n-1) '_0beg_Rix' Conf.Acquisition.Amplitude '_PhaseRIXHP' ...
                 num2str(Conf.Parameters.PhiHP-Conf.Parameters.PhiRix)...
                     '°_Orientation' Conf.Parameters.Orientation '_Qc' num2str(Q_c,'%.0f') 'W_Serie' num2str(Conf.Acquisition.Iteration) '.txt'];
             % writetimetable(TC_0beg(:,n),filenametxt,'WriteVariableNames',false,'Delimiter','tab');
             tmp_0beg = [seconds(TC_0beg.Time) table2array(TC_0beg(:,n))];
-            save(filenameTC0begtxt,"tmp_0beg",'-ascii')
+            save(filenameTC0begtxt_temporal,"tmp_0beg",'-ascii')
         end
 
-        % for nn = 1:2
-        % 
-        % end
+    
+        mkdir(SAVE_PATH,'TextData\AxialProfileData\')
+        savepathtxt_profile = [SAVE_PATH '\TextData\AxialProfileData\'];
+
+        rowNames = ["1_4_7_10_13" "2_5_8_11_14" "3_6_9_12_15"];
+
+        x = [0 39/2 39];                % Regen axial dimension
+        x_core = [x(1)-7 x x(end)+23];  % Core axial dimension
+        r = [-148/2 0 148/2];           % Regen transverse dimensions
+        r_AHX = [-110 0 110]/2;           % AHX transverse dimensions
+        r_CHX = [-140 0 140]/2;           % CHX transverse dimensions
+        
+        [X,R] = meshgrid(x,r);
+        R = R(end:-1:1,:);
+        X_core = [x_core;x_core;x_core];
+        R_core = [r_CHX' r' r' r' r_AHX'];
+        R_core = R_core(end:-1:1,:);
+
+        avg5lastmin = 5 * 60 * Conf.Acquisition.F_resampling;    % nb of points for averaging
+        TC_avg = mean(TC{end-avg5lastmin:end,2:end},1);
+        TC_0beg_avg = mean(TC_0beg{end-avg5lastmin:end,2:end},1);
+
+        TC_avg_mat = reshape(TC_avg,3,5);
+        TC_0beg_avg_mat = reshape(TC_0beg_avg,3,5);
+
+        for n = 1:3
+            filenameTCtxt_profile = [savepathtxt_profile 'data_TC' convertStringsToChars(rowNames(n)) '_Rix' Conf.Acquisition.Amplitude '_PhaseRIXHP' ...
+                num2str(Conf.Parameters.PhiHP-Conf.Parameters.PhiRix)...
+                    '°_Orientation' Conf.Parameters.Orientation '_Qc' num2str(Q_c,'%.0f') 'W_Serie' num2str(Conf.Acquisition.Iteration) '.txt'];
+            % writetimetable(TC(:,n),filenametxt,'WriteVariableNames',false,'Delimiter','tab');
+            tmp = [x_core ; TC_avg_mat(n,:)]';
+            save(filenameTCtxt_profile,"tmp",'-ascii')
+
+            filenameTC0begtxt_profile = [savepathtxt_profile 'data_TC' convertStringsToChars(rowNames(n)) '_0beg_Rix' Conf.Acquisition.Amplitude '_PhaseRIXHP' ...
+                num2str(Conf.Parameters.PhiHP-Conf.Parameters.PhiRix)...
+                    '°_Orientation' Conf.Parameters.Orientation '_Qc' num2str(Q_c,'%.0f') 'W_Serie' num2str(Conf.Acquisition.Iteration) '.txt'];
+            % writetimetable(TC_0beg(:,n),filenametxt,'WriteVariableNames',false,'Delimiter','tab');
+            tmp_0beg = [x_core ; TC_0beg_avg_mat(n,:)]';
+            save(filenameTC0begtxt_profile,"tmp_0beg",'-ascii')
+        end
+    
+    
     case 'No'
         % return
 end
