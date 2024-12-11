@@ -3,8 +3,11 @@ close all
 clc
 %% load all
 [filename,filepath] = uigetfile('*.mat','Select a pair of .mat files to process',...
-    'Z:\Martin\Measurements\TACOT\Version2_AddedSensors',...
+    'C:\Users\mfontbon\Desktop\sDrive\Manips\ConvectionNaturelle\PerformancesStudy',...
     'MultiSelect','on');
+if ~iscell(filename)
+    filename = cellstr(filename);
+end
 
 for nfile = 1:length(filename)
     tmp = strcat(filepath,filename(nfile));

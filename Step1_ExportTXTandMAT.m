@@ -21,7 +21,7 @@ BigData = BigData(1:Conf.Acquisition.F_sampling*T_end,:);    % Resizing to have 
 %% Configuration of measurement
 Conf.Parameters.WaterAHX_lperminute = 7;
 Conf.Parameters.GasMix = '65%He-35%Ar';
-Conf.Parameters.GasStaticPressure = 38;
+Conf.Parameters.GasStaticPressure = 40;
 Conf.Parameters.F_operation = 47;
 Conf.Parameters.RegPoros = 68;
 Conf.Parameters.rh = 2.81e-5;
@@ -31,7 +31,7 @@ Conf.Parameters.CanisterType = 'Inox';
 Conf.Parameters.Cpwater = 4185;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Conf.Acquisition.Iteration = 2;
+Conf.Acquisition.Iteration = 3;
 Conf.Parameters.Orientation = 'V1';
 Conf.Acquisition.ManipType = 'HeatOnly';
 Conf.Acquisition.Acq = 'Transient';
