@@ -272,11 +272,16 @@ end
 
 %% Plot thermal maps
 x = [0 39/2 39];                % Regen axial dimension
-x_core = [x(1)-10 x x(end)+5];  % Core axial dimension
-r = [-148/2 0 148/2];           % Regen transverse dimension
+x_core = [x(1)-7 x x(end)+23];  % Core axial dimension
+r = [-148/2 0 148/2];           % Regen transverse dimensions
+r_AHX = [-110 0 110]/2;           % AHX transverse dimensions
+r_CHX = [-140 0 140]/2;           % CHX transverse dimensions
 
 [X,R] = meshgrid(x,r);
 R = R(end:-1:1,:);
+X_core = [x_core;x_core;x_core];
+R_core = [r_CHX' r' r' r' r_AHX'];
+R_core = R_core(end:-1:1,:);
 
 i_tmp=0;
 figure('units','normalized','outerposition',[0 0 1 1]);
