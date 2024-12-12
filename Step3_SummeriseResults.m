@@ -22,21 +22,23 @@ xi1 = max(abs(BigData.Acc{:,1} / ((2*pi*47)^2))) * 1000
 xi2 = max(abs(BigData.Acc{:,2} / ((2*pi*47)^2))) * 1000
 
 DR = BigData.H_DPS(2,2) / BigData.Conf.Parameters.GasStaticPressure * 100
-
+Nfft = BigData.Conf.Acquisition.F_sampling;
 p = BigData.H_DPS(2,2)
-v1 = max(abs(BigData.Acc{:,1} / (2*pi*47)))
-Z1 = fft(BigData.DPS{:,2},BigData.Conf.Acquisition.F_sampling) ...
-    ./ fft(BigData.Acc{:,1},BigData.Conf.Acquisition.F_sampling);
-Z1 = Z1()
-Z1_mag = abs(Z1())
-v2 = max(abs(BigData.Acc{:,2} / (2*pi*47)))
-Z2(nfile)
+Z1_mag = p / (BigData.H_ACC(1,2) / (2*pi*47))
+Z1_phase = (BigData.phi_DPS(2,2) - (BigData.phi_ACC(1,2)-(pi/2))) * 180/pi
+Z2_mag = p / (BigData.H_ACC(2,2) / (2*pi*47))
+Z2_phase = (BigData.phi_DPS(2,2) - (BigData.phi_ACC(2,2)+(pi/2))) * 180/pi
 
-Tf_center = mean(BigData.TC{end-avg5lastmin:end,6})
-Tf_avg = mean(mean(BigData.TC{end-avg5lastmin:end,5:7})')
-Ta_center = mean(BigData.TC{end-avg5lastmin:end,12})
-Ta_avg = mean(mean(BigData.TC{end-avg5lastmin:end,11:13})')
+Tf_center = mean(BigData.TC{end-avg5lastmin:end,6}) + 273.15
+Tf_avg = mean(mean(BigData.TC{end-avg5lastmin:end,5:7})') + 273.15
+Ta_center = mean(BigData.TC{end-avg5lastmin:end,12}) + 273.15
+Ta_avg = mean(mean(BigData.TC{end-avg5lastmin:end,11:13})') + 273.15
 
 Qf = BigData.Q_c 
 Qa = BigData.Q_a
 
+COP_cold = BigData.Q_c / ...
+    ((BigData.Conf.Parameters.URIX_Vrms^2 + BigData.Conf.Parameters.UHP_Vrms^2) ...
+    / BigData.Conf.Parameters.RCHX_ohm)
+COP_carnot = Tf_avg / (Ta_avg - Tf_avg)
+COP_coldcarnot = COP_cold / COP_carnot
