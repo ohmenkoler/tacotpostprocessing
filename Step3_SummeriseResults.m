@@ -1,5 +1,6 @@
 clear;
 close all;
+clc
 %% load all
 [filename,filepath] = uigetfile('*.mat','Select a pair of .mat files to process',...
     'C:\Users\mfontbon\Desktop\sDrive\Manips\ConvectionNaturelle\PerformancesStudy',...
