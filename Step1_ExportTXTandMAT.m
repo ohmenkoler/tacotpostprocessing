@@ -32,8 +32,8 @@ Conf.Parameters.Cpwater = 4185;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Conf.Acquisition.Iteration = 1;
-Conf.Parameters.Orientation = 'V1';
-Conf.Acquisition.ManipType = 'AcouQc100W';
+Conf.Parameters.Orientation = 'H1';
+Conf.Acquisition.ManipType = 'Water';
 Conf.Acquisition.Acq = 'Transient';
 Conf.Acquisition.Amplitude = 'Mid';
 Conf.Parameters.UCHX_Vrms = sqrt(100*22.4);
