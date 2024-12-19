@@ -35,7 +35,7 @@ Conf.Acquisition.Iteration = 1;
 Conf.Parameters.Orientation = 'H1';
 Conf.Acquisition.ManipType = 'Water';
 Conf.Acquisition.Acq = 'Transient';
-Conf.Acquisition.Amplitude = 'Mid';
+Conf.Acquisition.Amplitude = 'Hi';
 Conf.Parameters.UCHX_Vrms = sqrt(100*22.4);
 switch Conf.Acquisition.Amplitude
     case {'Low','Lo','low','lo'}

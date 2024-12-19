@@ -31,7 +31,7 @@ The program prompts you with a directory selection window to choose a folder in 
 
 ## Step 2 : plot those data
 
-This program works with two files to compare. 1 will throw and error, I have not tried with more than 2 yet.
+This program works with two files to compare. I have not tried with more than 2 yet but I don't need to plot more than that.
 
 It plots:
 
@@ -42,3 +42,23 @@ It plots:
 5. The 3 axial gradients, on the entire core **(stored as `AxProfile5_Orientations_Amplitude.fig`)**
 
 For limits on plots, the $T_{min}$ and $T_{max}$ are computed so that all the points are visible (except out of ambient HX as the sensors are dying), both for the plots with and without initial temperatures
+
+
+## Step 3 : sumarise for quick analysis
+
+From the selected `.mat` file, extracts 
+
+- $\xi_1$
+- $\xi_2$
+- $p$
+- DR
+- $|Z_1|$ and $\angle Z_1$
+- $|Z_2|$ and $\angle Z_2$
+- $T_a$ and $<T_a>$
+- $T_f$ and $<T_f>$
+- $T_{Rix}$
+- $Q_c$
+- $Q_a$
+- $COP$
+- $COP_{carnot}$
+- $COP/COP_{carnot}$
