@@ -20,7 +20,7 @@ Orientation = BigData.Conf.Parameters.Orientation
 xi1 = max(abs(BigData.Acc{:,1} / ((2*pi*47)^2))) * 1000
 xi2 = max(abs(BigData.Acc{:,2} / ((2*pi*47)^2))) * 1000
 
-DR = BigData.H_DPS(2,2) / BigData.Conf.Parameters.GasStaticPressure/10e5 * 100
+DR = BigData.H_DPS(2,2) / BigData.Conf.Parameters.GasStaticPressure / 1e5 * 100
 Nfft = BigData.Conf.Acquisition.F_sampling;
 p = BigData.H_DPS(2,2)
 Z1_mag = p / (BigData.H_ACC(1,2) / (2*pi*47))
