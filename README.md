@@ -22,7 +22,7 @@ This program also makes light data by
 
 ### Oscillating amplitudes and phase calculations
 
-The amplitudes of pressure are calculated with a synchronous detection method, the drive ratio is deduced from the pressure amplitude for the 1st harmonic
+The amplitudes of pressure are calculated with a synchronous detection method, the drive ratio is deduced from the pressure amplitude for the fundamental frequency measured in the TA cavity.
 
 ### Storing
 
@@ -44,7 +44,7 @@ It plots:
 For limits on plots, the $T_{min}$ and $T_{max}$ are computed so that all the points are visible (except out of ambient HX as the sensors are dying), both for the plots with and without initial temperatures
 
 
-## Step 3 : sumarise for quick analysis
+## Step 3 : sumarise data for quick analysis
 
 From the selected `.mat` file, extracts 
 
